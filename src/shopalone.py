@@ -4,16 +4,17 @@ import database
 from model import Node
 
 app = Flask(__name__)
+app.teardown_appcontext(database.close_session)
 
 
-@app.route('/')
+@app.route("/")
 def index():
     return '<a href="https://github.com/jvytee/shopalone">shopalone</a>'
 
 
-@app.route('/market/id/<int:key>', methods=['GET', 'POST'])
+@app.route("/market/id/<int:key>", methods=["GET", "POST"])
 def market_id(key: int):
-    if request.method == 'GET':
+    if request.method == "GET":
         session = database.get_session()
         nodes = session.query(Node).filter(Node.id == key).all()
 
@@ -25,10 +26,10 @@ def market_id(key: int):
     abort(501)
 
 
-@app.route('/market/postcode/<string:code>')
-@app.route('/market/postcode/<string:code>/<int:timestamp>')
+@app.route("/market/postcode/<string:code>")
+@app.route("/market/postcode/<string:code>/<int:timestamp>")
 def postcode_timestamp(code: str, timestamp: int = None):
     if timestamp is None:
         return code
 
-    return f'{code} at {timestamp}'
+    return f"{code} at {timestamp}"
