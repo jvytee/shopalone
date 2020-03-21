@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, Integer, Time
+from sqlalchemy import Column, BigInteger, Integer, Time, Float
 from sqlalchemy.dialects.postgresql import HSTORE, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2 import Geometry
@@ -33,3 +33,12 @@ class WayNode(Base):
     way_id = Column(BigInteger, primary_key=True)
     sequence_id = Column(Integer, primary_key=True)
     node_id = Column(BigInteger)
+
+
+class Visit(Base):
+    __tablename__ = "visits"
+    id = Column(BigInteger, primary_key=True)
+    node_id = Column(BigInteger)
+    way_id = Column(BigInteger)
+    tstamp = Column(Time)
+    weight = Column(Float)
