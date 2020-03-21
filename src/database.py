@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 
 def get_engine():
     if 'engine' not in g:
-        g.engine = create_engine('postgresql://postgres:postgres@127.0.0.1/shopalone', echo=True)
+        g.engine = create_engine('postgresql://postgres:postgres@127.0.0.1/shopalone')
 
     return g.engine
 
