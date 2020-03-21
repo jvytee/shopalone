@@ -1,5 +1,7 @@
 from flask import Flask, request
 
+import database
+
 app = Flask(__name__)
 
 
@@ -10,6 +12,8 @@ def index():
 
 @app.route('/market/id/<int:key>', methods=['GET', 'POST'])
 def market_id(key: int):
+    session = database.get_session()
+    app.logger.debug(session)
     return str(key)
 
 
