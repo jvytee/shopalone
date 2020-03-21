@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'shopalone'
+    return '<a href="https://github.com/jvytee/shopalone">shopalone</a>'
 
 
 @app.route('/market/id/<int:key>', methods=['GET', 'POST'])
