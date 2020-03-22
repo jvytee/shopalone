@@ -24,7 +24,7 @@ Feedback and contributions are highly welcome!
   flask run
   ```
 
-This process is not ideal; it will be improved after I had some sleep.
+This process is not ideal; it will be improved after I had some sleep. Please do not use this setup in production!
 
 ## Endpoints
 All endpoints return JSON data.
