@@ -1,6 +1,10 @@
+import click
 from flask import g
+from flask.cli import with_appcontext
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from model import Base
 
 
 def get_engine():
@@ -24,5 +28,8 @@ def close_session(e=None):
         session.close()
 
 
-def init_app(app):
-    app.teardown_appcontext(close_session)
+@click.command("init-db")
+@with_appcontext
+def init_db():
+    engine = get_engine()
+    Base.metadata.create_all(engine)

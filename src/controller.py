@@ -2,7 +2,7 @@ from typing import Union
 
 import database
 import util
-from model import Node, Way
+from model import Node, Way, Visit
 
 
 def get_market(market_id: int) -> Union[dict, None]:
@@ -17,3 +17,10 @@ def get_market(market_id: int) -> Union[dict, None]:
         return {"id": way.id, "tags": way.tags, "location": list()}
 
     return None
+
+
+def get_visits(market_id: int) -> Union[list, None]:
+    session = database.get_session()
+
+    visits = session.query(Visit).filter(Visit.node_id == market_id, Visit.way_id == market_id).all()
+    return visits

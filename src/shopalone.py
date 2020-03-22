@@ -5,6 +5,7 @@ import controller
 
 app = Flask(__name__)
 app.teardown_appcontext(database.close_session)
+app.cli.add_command(database.init_db)
 
 
 @app.route("/")
@@ -23,7 +24,9 @@ def market(market_id: int):
 
 @app.route("/visit/<int:market_id>")
 def visit(market_id: int):
-    return jsonify(market_id)
+    results = controller.get_visits(market_id)
+
+    return jsonify(results)
 
 
 @app.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
@@ -32,7 +35,6 @@ def visit_time(market_id: int, timestamp: int):
         abort(501)
 
     if request.method == "POST":
-        visit = Visit(node_id=market_id, way_id=market_id, tstamp=timestamp, weight=1)
         return f"{market_id} at {timestamp}"
 
 
