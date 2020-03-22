@@ -34,7 +34,11 @@ def visit_time(market_id: int, timestamp: int):
         abort(501)
 
     if request.method == "POST":
-        return f"{market_id} at {timestamp}"
+        result = controller.add_visit(market_id, timestamp)
+        if result is not None:
+            return result.to_dict()
+
+        abort(404)
 
 
 @app.route("/postcode/<string:code>")
