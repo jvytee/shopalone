@@ -51,4 +51,4 @@ def postcode(code: str):
 
 @app.route("/postcode/<string:code>/<int:timestamp>")
 def postcode_time(code: str, timestamp: int):
-    return f"{code} at {timestamp}"
+    abort(501)
