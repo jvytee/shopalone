@@ -1,8 +1,7 @@
 from flask import Flask, abort, jsonify, request
 
 import database
-import util
-from model import Node, Way, Visit
+import controller
 
 app = Flask(__name__)
 app.teardown_appcontext(database.close_session)
@@ -15,15 +14,9 @@ def index():
 
 @app.route("/market/<int:market_id>")
 def market(market_id: int):
-    session = database.get_session()
-
-    node = session.query(Node).filter(Node.id == market_id).first()
-    if node is not None:
-        return {"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)}
-
-    way = session.query(Way).filter(Way.id == market_id).first()
-    if way is not None:
-        return {"id": way.id, "tags": way.tags, "location": list()}
+    result = controller.get_market(market_id)
+    if result is not None:
+        return result
 
     abort(404)
 
