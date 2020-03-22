@@ -13,7 +13,7 @@ More functionality as well as a web frontend will be added incrementally.
 Feedback and contributions are highly welcome!
 
 ## Setup
-- Clone this repository
+- Clone this repository: `https://github.com/jvytee/shopalone.git`
 - Download some OpenStreetMap data for your region, e.g. [here](https://download.geofabrik.de/) and place it in a subfolder called `data`
 - Install [Osmosis](https://github.com/openstreetmap/osmosis) and setup a PostGIS database as lined out in the [documentation](https://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup). You can use the supplied *docker-compose* setup to get a PostgreSQL/PostGIS instance running in no time: `docker-compose up -d`
 - Import data from your downloaded file into the database by executing `./import_osm.sh`
