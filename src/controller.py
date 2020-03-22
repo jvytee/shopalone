@@ -10,11 +10,13 @@ def get_market(market_id: int) -> Union[dict, None]:
 
     node = session.query(Node).filter(Node.id == market_id).first()
     if node is not None:
-        return {"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)}
+        #return {"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)}
+        return node
 
     way = session.query(Way).filter(Way.id == market_id).first()
     if way is not None:
-        return {"id": way.id, "tags": way.tags, "location": list()}
+        #return {"id": way.id, "tags": way.tags, "location": list()}
+        return way
 
     return None
 
@@ -22,5 +24,6 @@ def get_market(market_id: int) -> Union[dict, None]:
 def get_visits(market_id: int) -> Union[list, None]:
     session = database.get_session()
 
-    visits = session.query(Visit).filter(Visit.node_id == market_id, Visit.way_id == market_id).all()
+    #visits = session.query(Visit).filter(Visit.node_id == market_id, Visit.way_id == market_id).all()
+    visits = session.query(Visit).all()
     return visits

@@ -17,14 +17,14 @@ def index():
 def market(market_id: int):
     result = controller.get_market(market_id)
     if result is not None:
-        return result
+        return result.to_dict()
 
     abort(404)
 
 
 @app.route("/visit/<int:market_id>")
 def visit(market_id: int):
-    results = controller.get_visits(market_id)
+    results = [result.to_dict() for result in controller.get_visits(market_id)]
 
     return jsonify(results)
 

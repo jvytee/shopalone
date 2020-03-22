@@ -1,7 +1,9 @@
-from sqlalchemy import Column, BigInteger, Integer, Time, Float
+from sqlalchemy import Column, BigInteger, Integer, DateTime, Float
 from sqlalchemy.dialects.postgresql import HSTORE, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2 import Geometry
+
+import util
 
 Base = declarative_base()
 
@@ -11,10 +13,21 @@ class Node(Base):
     id = Column(BigInteger, primary_key=True)
     version = Column(Integer)
     user_id = Column(Integer)
-    tstamp = Column(Time)
+    tstamp = Column(DateTime)
     changeset_id = Column(BigInteger)
     tags = Column(HSTORE)
     geom = Column(Geometry("POINT"))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "version": self.version,
+            "user_id": self.user_id,
+            "tstamp": self.tstamp.timestamp(),
+            "changeset_id": self.changeset_id,
+            "tags": self.tags,
+            "geom": util.to_list(self.geom),
+        }
 
 
 class Way(Base):
@@ -22,10 +35,21 @@ class Way(Base):
     id = Column(BigInteger, primary_key=True)
     version = Column(Integer)
     user_id = Column(Integer)
-    tstamp = Column(Time)
+    tstamp = Column(DateTime)
     changeset_id = Column(BigInteger)
     tags = Column(HSTORE)
     nodes = Column(ARRAY(BigInteger))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "version": self.version,
+            "user_id": self.user_id,
+            "tstamp": self.tstamp.timestamp(),
+            "changeset_id": self.changeset_id,
+            "tags": self.tags,
+            "nodes": self.nodes,
+        }
 
 
 class WayNode(Base):
@@ -34,11 +58,27 @@ class WayNode(Base):
     sequence_id = Column(Integer, primary_key=True)
     node_id = Column(BigInteger)
 
+    def to_dict(self):
+        return {
+            "way_id": self.way_id,
+            "sequence_id": self.sequence_id,
+            "node_id": self.node_id,
+        }
+
 
 class Visit(Base):
     __tablename__ = "visits"
     id = Column(BigInteger, primary_key=True)
     node_id = Column(BigInteger)
     way_id = Column(BigInteger)
-    tstamp = Column(Time)
+    tstamp = Column(DateTime)
     weight = Column(Float)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "node_id": self.node_id,
+            "way_id": self.way_id,
+            "tstamp": self.tstamp.timestamp(),
+            "weight": self.weight,
+        }
