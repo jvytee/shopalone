@@ -2,7 +2,7 @@ from flask import Flask, abort, jsonify, request
 
 import database
 import util
-from model import Node, Way
+from model import Node, Way, Visit
 
 app = Flask(__name__)
 app.teardown_appcontext(database.close_session)
@@ -29,6 +29,7 @@ def market_id(key: int, timestamp: int = None):
 
         abort(404)
     else:
+        visit = Visit(node_id=key, way_id=key, tstamp=timestamp, weight=1)
         abort(501)
 
 
