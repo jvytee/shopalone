@@ -25,7 +25,6 @@ def market(market_id: int):
 @app.route("/visit/<int:market_id>")
 def visit(market_id: int):
     results = [result.to_dict() for result in controller.get_visits(market_id)]
-
     return jsonify(results)
 
 
