@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+
 from typing import Union
-from sqlalchemy import or_
+from sqlalchemy import and_, or_
 
 import database
 from model import Node, Way, Visit
@@ -25,6 +26,21 @@ def get_visits(market_id: int) -> Union[list, None]:
 
     visits = session.query(Visit).filter(or_(Visit.node_id == market_id, Visit.way_id == market_id)).all()
     return visits
+
+
+def get_visits_at(market_id: int, timestamp: int) -> Union[list, None]:
+    session = database.get_session()
+    visit_datetime = datetime.fromtimestamp(timestamp)
+    delta = timedelta(minutes=30)
+
+    visits = (
+        session.query(Visit)
+        .filter(and_(or_(Visit.node_id == market_id, Visit.way_id == market_id), and_(Visit.tstamp < visit_datetime + delta, Visit.tstamp >= visit_datetime - delta)))
+        .all()
+    )
+
+    return visits
+
 
 def add_visit(market_id: int, timestamp: int):
     session = database.get_session()

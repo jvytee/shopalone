@@ -31,7 +31,8 @@ def visit(market_id: int):
 @app.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
 def visit_time(market_id: int, timestamp: int):
     if request.method == "GET":
-        abort(501)
+        results = [result.to_dict() for result in controller.get_visits_at(market_id, timestamp)]
+        return jsonify(results)
 
     if request.method == "POST":
         result = controller.add_visit(market_id, timestamp)
