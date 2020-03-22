@@ -18,19 +18,18 @@ def index():
 def market_id(key: int, timestamp: int = None):
     if timestamp is None:
         session = database.get_session()
-        nodes = session.query(Node).filter(Node.id == key).all()
-        ways = session.query(Way).filter(Way.id == key).all()
+        node = session.query(Node).filter(Node.id == key).first()
+        way = session.query(Way).filter(Way.id == key).first()
 
-        result_nodes = [{"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)} for node in nodes]
-        result_ways = [{"id": way.id, "tags": way.tags, "location": []} for way in ways]
-        result = result_nodes + result_ways
+        if node is not None:
+            return {"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)}
 
-        if len(result):
-            return jsonify(result)
+        if way is not None:
+            return {"id": way.id, "tags": way.tags, "location": list()}
 
         abort(404)
-
-    abort(501)
+    else:
+        abort(501)
 
 
 @app.route("/market/postcode/<string:code>")
