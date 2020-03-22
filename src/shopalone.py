@@ -31,7 +31,7 @@ def visit(market_id: int):
 @app.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
 def visit_time(market_id: int, timestamp: int):
     if request.method == "GET":
-        results = [result.to_dict() for result in controller.get_visits_at(market_id, timestamp)]
+        results = [result.to_dict() for result in controller.get_visits_time(market_id, timestamp)]
         return jsonify(results)
 
     if request.method == "POST":
@@ -44,7 +44,9 @@ def visit_time(market_id: int, timestamp: int):
 
 @app.route("/postcode/<string:code>")
 def postcode(code: str):
-    return code
+    results = [result.to_dict() for result in controller.get_postcode(code)]
+
+    return jsonify(results)
 
 
 @app.route("/postcode/<string:code>/<int:timestamp>")

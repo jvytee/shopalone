@@ -28,21 +28,26 @@ def get_visits(market_id: int) -> Union[list, None]:
     return visits
 
 
-def get_visits_at(market_id: int, timestamp: int) -> Union[list, None]:
+def get_visits_time(market_id: int, timestamp: int) -> Union[list, None]:
     session = database.get_session()
     visit_datetime = datetime.fromtimestamp(timestamp)
     delta = timedelta(minutes=30)
 
     visits = (
         session.query(Visit)
-        .filter(and_(or_(Visit.node_id == market_id, Visit.way_id == market_id), and_(Visit.tstamp < visit_datetime + delta, Visit.tstamp >= visit_datetime - delta)))
+        .filter(
+            and_(
+                or_(Visit.node_id == market_id, Visit.way_id == market_id),
+                and_(Visit.tstamp < visit_datetime + delta, Visit.tstamp >= visit_datetime - delta),
+            )
+        )
         .all()
     )
 
     return visits
 
 
-def add_visit(market_id: int, timestamp: int):
+def add_visit(market_id: int, timestamp: int) -> Visit:
     session = database.get_session()
 
     node_id, way_id = None, None
@@ -61,3 +66,12 @@ def add_visit(market_id: int, timestamp: int):
     session.commit()
 
     return visit
+
+
+def get_postcode(code: str) -> Union[list, None]:
+    session = database.get_session()
+
+    nodes = session.query(Node).filter(Node.tags["addr:postcode"] == code).all()
+    ways = session.query(Way).filter(Way.tags["addr:postcode"] == code).all()
+
+    return nodes + ways
