@@ -13,30 +13,41 @@ def index():
     return '<a href="https://github.com/jvytee/shopalone">shopalone</a>'
 
 
-@app.route("/market/id/<int:key>")
-@app.route("/market/id/<int:key>/<int:timestamp>", methods=["GET", "POST"])
-def market_id(key: int, timestamp: int = None):
-    if timestamp is None:
-        session = database.get_session()
+@app.route("/market/<int:market_id>")
+def market(market_id: int):
+    session = database.get_session()
 
-        node = session.query(Node).filter(Node.id == key).first()
-        if node is not None:
-            return {"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)}
+    node = session.query(Node).filter(Node.id == market_id).first()
+    if node is not None:
+        return {"id": node.id, "tags": node.tags, "location": util.to_list(node.geom)}
 
-        way = session.query(Way).filter(Way.id == key).first()
-        if way is not None:
-            return {"id": way.id, "tags": way.tags, "location": list()}
+    way = session.query(Way).filter(Way.id == market_id).first()
+    if way is not None:
+        return {"id": way.id, "tags": way.tags, "location": list()}
 
-        abort(404)
-    else:
-        visit = Visit(node_id=key, way_id=key, tstamp=timestamp, weight=1)
+    abort(404)
+
+
+@app.route("/visit/<int:market_id>")
+def visit(market_id: int):
+    return jsonify(market_id)
+
+
+@app.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
+def visit_time(market_id: int, timestamp: int):
+    if request.method == "GET":
         abort(501)
 
+    if request.method == "POST":
+        visit = Visit(node_id=market_id, way_id=market_id, tstamp=timestamp, weight=1)
+        return f"{market_id} at {timestamp}"
 
-@app.route("/market/postcode/<string:code>")
-@app.route("/market/postcode/<string:code>/<int:timestamp>")
-def postcode_timestamp(code: str, timestamp: int = None):
-    if timestamp is None:
-        return code
 
+@app.route("/postcode/<string:code>")
+def postcode(code: str):
+    return code
+
+
+@app.route("/postcode/<string:code>/<int:timestamp>")
+def postcode_time(code: str, timestamp: int):
     return f"{code} at {timestamp}"
