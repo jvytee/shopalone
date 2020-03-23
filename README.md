@@ -15,14 +15,12 @@ Feedback and contributions are highly welcome!
 ## Setup
 - Clone this repository: `https://github.com/jvytee/shopalone.git`
 - Download some OpenStreetMap data for your region, e.g. [here](https://download.geofabrik.de/) and place it in a subfolder called `data`
-- Install [Osmosis](https://github.com/openstreetmap/osmosis) and setup a PostGIS database as lined out in the [documentation](https://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup). You can use the supplied *docker-compose* setup to get a PostgreSQL/PostGIS instance running in no time: `docker-compose up -d`
+- Install [Osmosis](https://github.com/openstreetmap/osmosis) and setup a PostGIS database as lined out in the [documentation](https://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup). You can use the supplied *docker-compose* setup to get a fresh PostgreSQL/PostGIS instance running in no time: `docker-compose up -d`
 - Import data from your downloaded file into the database by executing `./import_osm.sh`
 - Install python dependencies: `pip install -U -r requirements.txt`
-- Finally, start the *flask* service:
-  ```
-  export FLASK_APP=src/shopalone.py
-  flask run
-  ```
+- Set flask app: `export FLASK_APP=src/shopalone.py`
+- Initialize the database: `flask init-db`
+- Finally, start the API service: `flask run`
 
 This process is not ideal; it will be improved after I had some sleep. Please do not use this setup in production!
 
