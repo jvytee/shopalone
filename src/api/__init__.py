@@ -2,15 +2,15 @@ from flask import Blueprint, abort, jsonify, request
 
 import controller
 
-blue = Blueprint("api", __name__)
+blueprint = Blueprint("api", __name__)
 
 
-@blue.route("/")
+@blueprint.route("/")
 def index():
     return '<a href="https://github.com/jvytee/shopalone">shopalone</a>'
 
 
-@blue.route("/market/<int:market_id>")
+@blueprint.route("/market/<int:market_id>")
 def market(market_id: int):
     result = controller.get_market(market_id)
     if result is not None:
@@ -19,13 +19,13 @@ def market(market_id: int):
     abort(404)
 
 
-@blue.route("/visit/<int:market_id>")
+@blueprint.route("/visit/<int:market_id>")
 def visit(market_id: int):
     results = [result.to_dict() for result in controller.get_visits(market_id)]
     return jsonify(results)
 
 
-@blue.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
+@blueprint.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
 def visit_time(market_id: int, timestamp: int):
     if request.method == "GET":
         results = [result.to_dict() for result in controller.get_visits_time(market_id, timestamp)]
@@ -39,13 +39,13 @@ def visit_time(market_id: int, timestamp: int):
         abort(404)
 
 
-@blue.route("/postcode/<string:code>")
+@blueprint.route("/postcode/<string:code>")
 def postcode(code: str):
     results = [result.to_dict() for result in controller.get_postcode(code)]
 
     return jsonify(results)
 
 
-@blue.route("/postcode/<string:code>/<int:timestamp>")
+@blueprint.route("/postcode/<string:code>/<int:timestamp>")
 def postcode_time(code: str, timestamp: int):
     abort(501)
