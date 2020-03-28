@@ -1,13 +1,5 @@
-<!doctype html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('web.static', filename='normalize.css') }}">
+{% extends "base.html" %}
 
-        <title>shopalone</title>
-    </head>
-
-    <body>
-        <h1>shopalone</h1>
-    </body>
-</html>
+{% block content %}
+<h1>shopalone</h1>
+{% endblock content %}
