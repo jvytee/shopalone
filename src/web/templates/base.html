@@ -4,13 +4,22 @@
         {% block head %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('web.static', filename='normalize.css') }}">
+        <link rel="stylesheet" href="{{ url_for('web.static', filename='style.css') }}">
 
         <title>shopalone</title>
         {% endblock head %}
     </head>
 
     <body>
-        {% block content %}
-        {% endblock content %}
+        <header>
+            {% block header %}
+            <h1>shopalone</h1>
+            {% endblock header %}
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
     </body>
 </html>

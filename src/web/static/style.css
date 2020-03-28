@@ -1,0 +1,31 @@
+:root {
+    --color-main: #88BBE4;
+    --color-accent: #87DCC0;
+    --color-accent2: #CDF1AF;
+    --color-alt: #E494D3;
+    --color-alt2: #998AD3;
+}
+
+html {
+    color: #424242;
+    font-family: sans-serif;
+}
+
+header {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    
+    border-bottom-style: solid;
+    border-bottom-color: var(--color-accent);
+
+    color: var(--color-main);
+    text-align: center;
+}
+
+main {
+    margin: 20px auto;
+    max-width: 600pt;
+}
