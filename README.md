@@ -28,10 +28,10 @@ This process is not ideal; it will be improved after I had some sleep. Please do
 
 ## Endpoints
 All endpoints return JSON data.
-- `/market/<id>`: Returns a single market
-- `/visit/<id>`: Returns all visits for a market
-- `/visit/<id>/<timestamp>`: **GET** Returns all visits for a market that are relavant at a given time  
+- `/api/market/<id>`: Returns a single market
+- `/api/visit/<id>`: Returns all visits for a market
+- `/api/visit/<id>/<timestamp>`: **GET** Returns all visits for a market that are relavant at a given time  
   **POST** Registers a new visit
-- `/postcode/<code>`: Returns a list of all markets with the given PLZ
+- `/api/postcode/<code>`: Returns a list of all markets with the given PLZ
 
 ![](Logo_Projekt_01.png)
