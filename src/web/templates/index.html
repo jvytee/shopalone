@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-Hello, world!
+<form action="{{ url_for("api.market") }}">
+    <label for="postcode">Postleitzahl</label>
+    <input type="text" name="postcode">
+    <input type="submit" value="Suchen">
+</form>
 {% endblock content %}
