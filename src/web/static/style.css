@@ -29,3 +29,25 @@ main {
     margin: 20px auto;
     max-width: 600pt;
 }
+
+form {
+    margin: 10pt;
+    display: flex;
+    align-items: center;
+    flex-wrap:  wrap;
+    justify-content: space-around;
+}
+
+input.button {
+    margin: 10pt 0;
+    padding: auto;
+    height: 2em;
+    min-width: 100pt;
+  
+    border-radius: 5pt;
+    border-style: none;
+
+    
+    background-color: var(--color-main);
+    color: #424242;
+}
