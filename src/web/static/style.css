@@ -38,16 +38,20 @@ form {
     justify-content: space-around;
 }
 
-input.button {
+input {
     margin: 10pt 0;
-    padding: auto;
-    height: 2em;
-    min-width: 100pt;
-  
-    border-radius: 5pt;
-    border-style: none;
+    min-height: 2em;
 
-    
-    background-color: var(--color-main);
+    border-color: var(--color-main);
+    border-radius: 2pt;
+    border-style: solid;
+
     color: #424242;
+}
+
+input.button {
+    padding: auto;
+    min-width: 100pt;
+
+    background-color: var(--color-main);
 }
