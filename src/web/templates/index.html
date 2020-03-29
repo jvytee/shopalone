@@ -3,14 +3,14 @@
 {% block content %}
 <form action="{{ url_for("web.index") }}">
     <label for="postcode">Postleitzahl</label>
-    <input type="text" name="postcode" class="textfield">
+    <input type="text" name="postcode" value="{{ request.args.get("postcode", "") }}" class="textfield">
     <input type="submit" value="Suchen" class="button">
 </form>
 
 <ul>
     {% if markets %}
     {% for market in markets %}
-    <li>{{ market.tags["name"] }}</li>
+    <li>{{ market.tags["name"] | e }} ({{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }})</li>
     {% endfor %}
     {% endif %}
 </ul>
