@@ -10,19 +10,36 @@ def index():
     return '<a href="https://github.com/jvytee/shopalone">shopalone</a>'
 
 
-@blueprint.route("/market/<int:market_id>")
-def market(market_id: int):
-    result = controller.get_market(market_id)
-    if result is not None:
-        return result.to_dict()
+@blueprint.route("/market")
+def market():
+    # TODO Handle timestamp
+    if "id" in request.args:
+        market_id = request.args.get("id")
+        result = controller.get_market(market_id)
 
-    abort(404)
+        if result is not None:
+            return result.to_dict()
+
+        abort(404)
+
+    if "postcode" in request.args:
+        postcode = request.args.get("postcode")
+        results = [result.to_dict() for result in controller.get_postcode(postcode)]
+
+        return jsonify(results)
+
+    abort(400)
 
 
-@blueprint.route("/visit/<int:market_id>")
-def visit(market_id: int):
-    results = [result.to_dict() for result in controller.get_visits(market_id)]
-    return jsonify(results)
+@blueprint.route("/visit")
+def visit():
+    if "market_id" in request.args:
+        market_id = request.args.get("market_id")
+        results = [result.to_dict() for result in controller.get_visits(market_id)]
+
+        return jsonify(results)
+
+    abort(400)
 
 
 @blueprint.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
@@ -36,16 +53,4 @@ def visit_time(market_id: int, timestamp: int):
         if result is not None:
             return result.to_dict()
 
-        abort(404)
-
-
-@blueprint.route("/postcode/<string:code>")
-def postcode(code: str):
-    results = [result.to_dict() for result in controller.get_postcode(code)]
-
-    return jsonify(results)
-
-
-@blueprint.route("/postcode/<string:code>/<int:timestamp>")
-def postcode_time(code: str, timestamp: int):
-    abort(501)
+    abort(404)
