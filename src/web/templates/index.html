@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="{{ url_for("api.market") }}">
+<form action="{{ url_for("web.index") }}">
     <label for="postcode">Postleitzahl</label>
     <input type="text" name="postcode" class="textfield">
     <input type="submit" value="Suchen" class="button">
 </form>
+
+<ul>
+    {% if markets %}
+    {% for market in markets %}
+    <li>{{ market.tags["name"] }}</li>
+    {% endfor %}
+    {% endif %}
+</ul>
 {% endblock content %}
