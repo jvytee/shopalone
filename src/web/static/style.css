@@ -1,22 +1,20 @@
 :root {
     --color-main: #88BBE4;
     --color-accent: #87DCC0;
-    --color-accent2: #CDF1AF;
+    --color-accent-secondary: #CDF1AF;
     --color-alt: #E494D3;
-    --color-alt2: #998AD3;
+    --color-alt-secondary: #998AD3;
 }
 
-html {
+body {
     color: #424242;
     font-family: sans-serif;
 }
 
 header {
     margin: 0;
-    padding: 0;
+    padding: 1pt;
     width: 100%;
-    position: sticky;
-    top: 0;
     
     border-bottom-style: solid;
     border-bottom-color: var(--color-accent);
@@ -34,13 +32,19 @@ form {
     margin: 10pt;
     display: flex;
     align-items: center;
+    flex-flow: column;
     flex-wrap:  wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+label {
+    margin: 5pt
 }
 
 input {
-    margin: 10pt 0;
+    margin: 5pt;
     min-height: 2em;
+    min-width: 150pt;
 
     border-color: var(--color-main);
     border-radius: 2pt;
@@ -51,7 +55,23 @@ input {
 
 input.button {
     padding: auto;
-    min-width: 100pt;
-
+    min-width: 150pt;
+    
     background-color: var(--color-main);
+}
+
+table#markettable {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+}
+
+th {
+    border-bottom-color: var(--color-accent-secondary);
+    border-bottom-style: solid;
+}
+
+th, td {
+    padding: 5pt;
 }

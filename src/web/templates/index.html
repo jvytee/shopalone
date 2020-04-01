@@ -7,11 +7,18 @@
     <input type="submit" value="Suchen" class="button">
 </form>
 
-<ul>
+<table id="markettable">
     {% if markets %}
+    <tr>
+        <th>Name</th>
+        <th>Adresse</th>
+    </tr>
     {% for market in markets %}
-    <li>{{ market.tags["name"] | e }} ({{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }})</li>
+    <tr>
+        <td>{{ market.tags["name"] | e }}</td>
+        <td>{{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }}</td>
+    </tr>
     {% endfor %}
     {% endif %}
-</ul>
+</table>
 {% endblock content %}
