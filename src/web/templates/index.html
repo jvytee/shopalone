@@ -16,7 +16,7 @@
 
     {% for market in markets %}
     <tr>
-        <td>{{ market.tags["name"] | default("Supermarkt") | e }}</td>
+        <td><a href={{ url_for("web.visit", market_id=market.id) }}>{{ market.tags["name"] | default("Supermarkt") | e }}</a></td>
         <td>{{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }}</td>
     </tr>
     {% endfor %}

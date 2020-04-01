@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+    {% for visit in visits %}
+    <li>{{ visit.tstamp | e}}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

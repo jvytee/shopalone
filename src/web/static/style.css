@@ -75,3 +75,11 @@ th {
 th, td {
     padding: 5pt;
 }
+
+a:link {
+    color: var(--color-main)
+}
+
+a:visited {
+    color: var(--color-accent);
+}
