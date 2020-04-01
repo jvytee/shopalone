@@ -13,9 +13,10 @@
         <th>Name</th>
         <th>Adresse</th>
     </tr>
+
     {% for market in markets %}
     <tr>
-        <td>{{ market.tags["name"] | e }}</td>
+        <td>{{ market.tags["name"] | default("Supermarkt") | e }}</td>
         <td>{{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }}</td>
     </tr>
     {% endfor %}
