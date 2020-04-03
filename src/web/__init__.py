@@ -1,3 +1,4 @@
+from dateutil import parser
 from flask import Blueprint, abort, render_template, request
 
 import controller
@@ -30,6 +31,9 @@ def visit():
         timestamp = request.form.get("timestamp")
 
         if market_id is not None and timestamp is not None:
+            tstamp_parsed = parser.parse(timestamp).timestamp()
+            controller.add_visit(market_id, int(tstamp_parsed))
+
             market = controller.get_market(market_id)
             visits = controller.get_visits(market_id)
 
