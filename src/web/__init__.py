@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, abort, render_template, request
 
 import controller
 
@@ -13,11 +13,24 @@ def index():
 
     return render_template("index.html", markets=markets)
 
-@blueprint.route("/visit")
-def visit():
-    market_id = request.args.get("market_id")
 
-    if market_id is not None:
+@blueprint.route("/visit", methods=["GET", "POST"])
+def visit():
+    if request.method == "GET":
+        market_id = request.args.get("market_id")
+
+        if market_id is not None:
+            market = controller.get_market(market_id)
+            visits = controller.get_visits(market_id)
+
+            return render_template("visit.html", market=market, visits=visits)
+
+    if request.method == "POST":
+        market_id = request.form.get("market_id")
+        timestamp = request.form.get("timestamp")
+        market = controller.get_market(market_id)
         visits = controller.get_visits(market_id)
 
-    return render_template("visit.html", visits=visits)
+        return render_template("visit.html", market=market, visits=visits, timestamp=timestamp)
+
+    abort(404)

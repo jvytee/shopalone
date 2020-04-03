@@ -6,4 +6,15 @@
     <li>{{ visit.tstamp | e}}</li>
     {% endfor %}
 </ul>
+
+{% if timestamp %}
+<h2 class="success">Supermarktbesuch um {{ timestamp }} Uhr gespeichert!</h2>
+{% else %}
+<form action="{{ url_for('web.visit') }}" method="post">
+    <label for="timestamp">Ich gehe hier einkaufen um...</label>
+    <input type="time" name="timestamp">
+    <input type="hidden" name="market_id" value="{{ request.args.get('market_id') }}">
+    <input type="submit" value="Und los!" class="button">
+</form>
+{% endif %}
 {% endblock content %}
