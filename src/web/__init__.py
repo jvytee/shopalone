@@ -28,9 +28,11 @@ def visit():
     if request.method == "POST":
         market_id = request.form.get("market_id")
         timestamp = request.form.get("timestamp")
-        market = controller.get_market(market_id)
-        visits = controller.get_visits(market_id)
 
-        return render_template("visit.html", market=market, visits=visits, timestamp=timestamp)
+        if market_id is not None and timestamp is not None:
+            market = controller.get_market(market_id)
+            visits = controller.get_visits(market_id)
+
+            return render_template("visit.html", market=market, visits=visits, market_id=market_id, timestamp=timestamp)
 
     abort(404)
