@@ -1,3 +1,4 @@
+from dateutil import parser
 from flask import Blueprint, abort, jsonify, request
 
 import controller
@@ -12,9 +13,8 @@ def index():
 
 @blueprint.route("/market")
 def market():
-    # TODO Handle timestamp
-    if "id" in request.args:
-        market_id = request.args.get("id")
+    market_id = request.args.get("id")
+    if market_id is not None:
         result = controller.get_market(market_id)
 
         if result is not None:
@@ -22,8 +22,8 @@ def market():
 
         abort(404)
 
-    if "postcode" in request.args:
-        postcode = request.args.get("postcode")
+    postcode = request.args.get("postcode")
+    if postcode is not None:
         results = [result.to_dict() for result in controller.get_postcode(postcode)]
 
         return jsonify(results)
@@ -31,26 +31,23 @@ def market():
     abort(400)
 
 
-@blueprint.route("/visit")
+@blueprint.route("/visit", methods=["GET", "POST"])
 def visit():
-    if "market_id" in request.args:
-        market_id = request.args.get("market_id")
-        results = [result.to_dict() for result in controller.get_visits(market_id)]
-
-        return jsonify(results)
-
-    abort(400)
-
-
-@blueprint.route("/visit/<int:market_id>/<int:timestamp>", methods=["GET", "POST"])
-def visit_time(market_id: int, timestamp: int):
     if request.method == "GET":
-        results = [result.to_dict() for result in controller.get_visits_time(market_id, timestamp)]
-        return jsonify(results)
+        market_id = request.args.get("market_id")
+
+        if market_id is not None:
+            results = [result.to_dict() for result in controller.get_visits(market_id)]
+            return jsonify(results)
 
     if request.method == "POST":
-        result = controller.add_visit(market_id, timestamp)
-        if result is not None:
+        market_id = request.form.get("market_id")
+        timestamp = request.form.get("timestamp")
+
+        if market_id is not None and timestamp is not None:
+            tstamp_parsed = parser.parse(timestamp).timestamp()
+            result = controller.add_visit(market_id, int(tstamp_parsed))
+
             return result.to_dict()
 
     abort(404)
