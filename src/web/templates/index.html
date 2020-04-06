@@ -3,7 +3,7 @@
 {% block content %}
 <form action="{{ url_for("web.index") }}">
     <label for="postcode">Postleitzahl</label>
-    <input type="text" name="postcode" value="{{ request.args.get("postcode", "") }}">
+    <input type="text" name="postcode" value="{{ request.args.get("postcode", "") | e}}">
     <input type="submit" value="Suchen" class="button">
 </form>
 

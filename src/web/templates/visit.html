@@ -2,23 +2,23 @@
 
 {% block content %}
 <div id="marketinfo">
-    <h2>{{ market.tags["name"] }}</h2>
-    {{ market.tags["addr:street"] }} {{ market.tags["addr:housenumber"] }}
+    <h2>{{ market.tags["name"] | e }}</h2>
+    {{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }}
 </div>
 
 <ul>
-    {% for visit in visits %}
+    {% for visit in visits | sort(attribute="tstamp") %}
     <li>{{ visit.tstamp | e}}</li>
     {% endfor %}
 </ul>
 
 {% if timestamp %}
-<h2 class="success">Supermarktbesuch um {{ timestamp }} Uhr gespeichert!</h2>
+<h2 class="success">Supermarktbesuch um {{ timestamp | e}} Uhr gespeichert!</h2>
 {% else %}
 <form action="{{ url_for('web.visit') }}" method="post">
     <label for="timestamp">Ich gehe hier einkaufen um...</label>
     <input type="time" name="timestamp">
-    <input type="hidden" name="market_id" value="{{ market.id }}">
+    <input type="hidden" name="market_id" value="{{ market.id | e}}">
     <input type="submit" value="Und los!" class="button">
 </form>
 {% endif %}
