@@ -8,8 +8,8 @@ With *shopalone*, users can enter when and where they are going for their grocer
 All this is possible without sacrificing privacy of individuals - User accounts are not necessary and geodata is imported from OpenStreetMap.
 
 ## Project State
-The 48 hours of the #wirvsvirus hackathon did not suffice to implement the full web service, but a first backend version serving a REST-API works flawlessly.
-More functionality as well as a web frontend will be added incrementally.
+The 48 hours of the #wirvsvirus hackathon did not suffice to implement the full web service, but a first backend version serving a small REST-API works.
+A minimal web frontend is work in progress, visualizations are still missing.
 Feedback and contributions are highly welcome!
 
 ## Setup
@@ -24,12 +24,14 @@ Feedback and contributions are highly welcome!
 
 This process is not ideal; it will be improved after I had some sleep. Please do not use this setup in production!
 
-## Endpoints
+## API Endpoints
 All endpoints return JSON data.
-- `/api/market/<id>`: Returns a single market
-- `/api/visit/<id>`: Returns all visits for a market
-- `/api/visit/<id>/<timestamp>`: **GET** Returns all visits for a market that are relavant at a given time  
-  **POST** Registers a new visit
-- `/api/postcode/<code>`: Returns a list of all markets with the given PLZ
+- `/api/market?id=<market_id>`: Returns a single market
+- `/api/market?postcode=<post_code>`: Returns all markets for a post code
+- `/api/visit?market_id=>market_id>`: Returns all visits for a market
+- `/api/visit` Sending `market_id` and `timestmap` via form data of a POST request adds a new visit and returns the visit object
+
+## Web Frontennd
+The web frontend can be accessed at `/web` or simply `/`. It should work with most browsers and does not require javascript.
 
 ![](Logo_Projekt_01.png)
