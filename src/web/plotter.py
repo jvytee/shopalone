@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from datetime import datetime
 
+plt.xkcd()
+
 
 def plot_visits(visits: list) -> bytes:
     t = np.arange(0, 24, 1/60)

@@ -18,6 +18,7 @@ header {
     
     border-bottom-style: solid;
     border-bottom-color: var(--color-accent);
+    box-sizing: border-box;
 
     color: var(--color-main);
     text-align: center;
@@ -25,6 +26,7 @@ header {
 
 main {
     margin: 20px auto;
+    padding: 0 10pt;
     max-width: 600pt;
 }
 
@@ -87,4 +89,8 @@ a:visited {
 h2.success {
     text-align: center;
     color: var(--color-alt);
+}
+
+img {
+    max-width: 100%;
 }

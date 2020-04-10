@@ -6,11 +6,7 @@
     {{ market.tags["addr:street"] | e }} {{ market.tags["addr:housenumber"] | e }}
 </div>
 
-<ul>
-    {% for visit in visits | sort(attribute="tstamp") %}
-    <li>{{ visit.tstamp | e}}</li>
-    {% endfor %}
-</ul>
+<img src="{{ url_for('web.plot', market_id=market.id) }}">
 
 {% if timestamp %}
 <h2 class="success">Supermarktbesuch um {{ timestamp | e}} Uhr gespeichert!</h2>
