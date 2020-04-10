@@ -1,6 +1,8 @@
+GeoAlchemy2
 flask
 gunicorn
-psycopg2
-GeoAlchemy2
-shapely
+matplotlib
 numpy
+psycopg2
+python-dateutil
+shapely
