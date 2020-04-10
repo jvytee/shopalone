@@ -1,7 +1,8 @@
 from dateutil import parser
-from flask import Blueprint, abort, render_template, request
+from flask import Blueprint, abort, render_template, request, Response
 
 import controller
+from web import plotter
 
 blueprint = Blueprint("web", __name__, static_folder="static", template_folder="templates")
 
@@ -40,3 +41,14 @@ def visit():
             return render_template("visit.html", market=market, visits=visits, market_id=market_id, timestamp=timestamp)
 
     abort(404)
+
+
+@blueprint.route("/plot")
+def plot():
+    market_id = request.args.get("market_id")
+
+    if market_id is not None:
+        visits = controller.get_visits(market_id)
+        image = plotter.plot_visits(visits)
+
+        return Response(image.getvalue(), mimetype="image/png")
