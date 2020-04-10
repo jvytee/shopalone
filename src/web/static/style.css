@@ -92,5 +92,7 @@ h2.success {
 }
 
 img {
+    margin: auto;
     max-width: 100%;
+    display: block;
 }

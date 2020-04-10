@@ -12,8 +12,14 @@ def plot_visits(visits: list) -> bytes:
     load = load_function(t, visits)
 
     fig, ax = plt.subplots()
-    ax.plot(t, load)
+    ax.set_title("Auslastung")
+    ax.set_xlabel("Uhrzeit")
+    ax.set_ylabel("Besucher")
+    ax.set_xlim(0, 24)
+    ax.set_ylim(0, max(1.1*load.max(), 1))
+    ax.set_xticks(np.arange(0, 24, 2))
 
+    ax.plot(t, load)
     image = io.BytesIO()
     FigureCanvasAgg(fig).print_png(image)
 
