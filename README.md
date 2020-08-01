@@ -8,9 +8,8 @@ With *shopalone*, users can enter when and where they are going for their grocer
 All this is possible without sacrificing privacy of individuals - User accounts are not necessary and geodata is imported from OpenStreetMap.
 
 ## Project State
-The 48 hours of the #wirvsvirus hackathon did not suffice to implement the full web service, but a first backend version serving a small REST-API could be realized.
+The 48 hours of the #wirvsvirus hackathon did not suffice to implement the full web service, so only a prototype backend serving a small REST-API could be realized.
 A minimal web frontend was only added eventually.
-Feedback and contributions are highly welcome!
 
 ## Installation
 - Clone this repository: `https://github.com/jvytee/shopalone.git`
