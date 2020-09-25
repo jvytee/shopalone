@@ -9,9 +9,10 @@ setup(
     version="0.1.0",
     package_dir={"": "src"},
     packages=find_packages("src"),
+    package_data={"": ["templates/*.html", "static/*.css"]},
     install_requires=[
-        "geoalchemy2",
         "flask",
+        "geoalchemy2",
         "matplotlib",
         "numpy",
         "psycopg2-binary",
