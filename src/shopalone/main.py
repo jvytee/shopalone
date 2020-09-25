@@ -1,9 +1,7 @@
 from flask import Flask, redirect, url_for
 
+from . import api, database, web
 
-import database
-import api
-import web
 
 app = Flask(__name__)
 app.teardown_appcontext(database.close_session)

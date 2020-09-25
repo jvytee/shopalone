@@ -4,7 +4,7 @@ from flask.cli import with_appcontext
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from model import Base
+from .model import Base
 
 
 def get_engine():

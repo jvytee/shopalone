@@ -1,8 +1,8 @@
 from dateutil import parser
 from flask import Blueprint, abort, render_template, request, Response
 
-import controller
-from web import plotter
+from .. import controller
+from . import plotter
 
 blueprint = Blueprint("web", __name__, static_folder="static", template_folder="templates")
 

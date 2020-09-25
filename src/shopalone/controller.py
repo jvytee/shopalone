@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 from typing import Union
 from sqlalchemy import and_, or_
 
-import database
-from model import Node, Way, Visit
+from . import database
+from .model import Node, Way, Visit
 
 
 def get_market(market_id: int) -> Union[dict, None]:

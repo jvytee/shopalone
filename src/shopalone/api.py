@@ -1,7 +1,7 @@
 from dateutil import parser
 from flask import Blueprint, abort, jsonify, request
 
-import controller
+from . import controller
 
 blueprint = Blueprint("api", __name__)
 

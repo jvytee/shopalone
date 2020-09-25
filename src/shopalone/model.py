@@ -3,7 +3,7 @@ from sqlalchemy.dialects.postgresql import HSTORE, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2 import Geometry
 
-import util
+from . import util
 
 Base = declarative_base()
 
