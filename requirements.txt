@@ -1,8 +1,0 @@
-GeoAlchemy2
-flask
-gunicorn
-matplotlib
-numpy
-psycopg2
-python-dateutil
-shapely
