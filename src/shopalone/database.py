@@ -1,3 +1,5 @@
+import os
+
 import click
 from flask import g
 from flask.cli import with_appcontext
@@ -9,7 +11,14 @@ from .model import Base
 
 def get_engine():
     if "engine" not in g:
-        g.engine = create_engine("postgresql://postgres:postgres@127.0.0.1/shopalone")
+        username = os.environ.get("PG_USERNAME", "postgres")
+        password = os.environ.get("PG_PASSWORD", "postgres")
+        host = os.environ.get("PG_HOST", "localhost")
+        port = os.environ.get("PG_PORT", "5432")
+        schema = os.environ.get("PG_SCHEMA", "shopalone")
+
+        url = f"postgresql://{username}:{password}@{host}:{port}/{schema}"
+        g.engine = create_engine(url)
 
     return g.engine
 
