@@ -30,7 +30,7 @@ For a containerized setup, the provided `Dockerfile` and `docker-compose.yml` ca
 All API endpoints return JSON data, the web frontend is plain HTML.
 - `/api/market?id=<market_id>`: Returns a single market
 - `/api/market?postcode=<post_code>`: Returns all markets for a post code
-- `/api/visit?market_id=>market_id>`: Returns all visits for a market
+- `/api/visit?market_id=<market_id>`: Returns all visits for a market
 - `/api/visit` Sending `market_id` and `timestmap` via form data of a POST request adds a new visit and returns the visit object
 - `/web` Serves as entry to the web frontend
 
