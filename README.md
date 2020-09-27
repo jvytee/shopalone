@@ -9,24 +9,25 @@ All this is possible without sacrificing privacy of individuals - User accounts 
 
 ## Project State
 The 48 hours of the #wirvsvirus hackathon did not suffice to implement the full web service, so only a prototype backend serving a small REST-API could be realized.
-A minimal web frontend was only added eventually.
+A minimal web frontend was added eventually.
 
 ## Installation
+- Download some OpenStreetMap data as PBF file for your region, e.g. from [here](https://download.geofabrik.de/) 
+- Install [Osmosis](https://github.com/openstreetmap/osmosis) and setup a PostGIS database as lined out in the [documentation](https://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup). The `postgis/postgis` Docker image provides an easy way to get a PostGIS database running quickly.
 - Clone this repository: `https://github.com/jvytee/shopalone.git`
-- Download some OpenStreetMap data for your region, e.g. [here](https://download.geofabrik.de/) and place it in a subfolder called `data`
-- Install [Osmosis](https://github.com/openstreetmap/osmosis) and setup a PostGIS database as lined out in the [documentation](https://wiki.openstreetmap.org/wiki/Osmosis/PostGIS_Setup) - call the database *shopalone* though. The `postgis/postgis` Docker image provides an easy way to get a PostGIS database running quickly.
-- Import data from your downloaded file into the database by executing `./import_osm.sh`
-- Install python dependencies: `pip install -U -r requirements.txt`
-- Set flask app: `export FLASK_APP=src/shopalone.py`
+- Import data from your downloaded file into the database by executing `./import_osm.sh <PBF path> <PostgreSQL host> <PostgreSQL schema>`
+- Install *shopalone* and dependencies: `pip install .`
+- Set *shopalone* as Flask app: `export FLASK_APP=shopalone.main:app`
 - Initialize the database: `flask init-db`
 
 ## Running
 For development and debugging purposes, the service can be started by `flask run`.
 In a production environment however, the service should be run with an application server such as [Gunicorn](https://gunicorn.org/).
-See `launch.sh` for an example setup!
 
-## API Endpoints
-All endpoints return JSON data.
+For a containerized setup, the provided `Dockerfile` and `docker-compose.yml` can serve as a reference.
+
+## Endpoints
+All API endpoints return JSON data, the web frontend is plain HTML.
 - `/api/market?id=<market_id>`: Returns a single market
 - `/api/market?postcode=<post_code>`: Returns all markets for a post code
 - `/api/visit?market_id=>market_id>`: Returns all visits for a market
