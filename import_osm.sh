@@ -1,7 +1,16 @@
 #!/bin/sh
 
-DATA_PATH=data/koeln-regbez-latest.osm.pbf
-DB_HOST=127.0.0.1
+#DATA_PATH=../data/koeln-regbez-latest.osm.pbf
+#DB_HOST=localhost
+
+if [ -z $3 ]; then
+    echo "Usage: $0 <PBF path> <PostgreSQL host> <PostgreSQL schema>"
+    exit 0
+fi
+
+DATA_PATH=$1
+DB_HOST=$2
+DB_SCHEMA=$3
 DB_USER=postgres
 DB_PASSWORD=postgres
 
