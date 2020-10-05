@@ -1,3 +1,15 @@
+"""Functions to manage connection to a PostgreSQL database.
+Connection parameters are read from environment variables (or set to default values):
+
+    PG_USERNAME=postgres
+    PG_PASSWORD=postgres
+    PG_HOST=localhost
+    PG_PORT=5432
+    PG_SCHEMA=shopalone
+
+Engine and Session objects for SQLAlchemy are either created or retrieved from Flask's g cache automatically.
+"""
+
 import os
 
 import click

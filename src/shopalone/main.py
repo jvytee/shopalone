@@ -1,3 +1,9 @@
+"""Main entrypoint for the shopalone flask app.
+Registers teardown handler, CLI commands and the api and web blueprints.
+
+Middleware (e.g. gunicorn) must load the app as shopalone.main:app.
+"""
+
 from flask import Flask, redirect, url_for
 
 from . import api, database, web

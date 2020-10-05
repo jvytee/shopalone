@@ -1,3 +1,9 @@
+"""SQLAlchemy model classes.
+Actually, these classes are only used as mappings to database tables.
+Relationships are not declared as it did not seem to useful when first starting shopalone,
+but may turn out useful in the future?
+"""
+
 from sqlalchemy import Column, BigInteger, Integer, DateTime, Float
 from sqlalchemy.dialects.postgresql import HSTORE, ARRAY
 from sqlalchemy.ext.declarative import declarative_base

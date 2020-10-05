@@ -1,6 +1,10 @@
-from datetime import datetime, timedelta
+"""Controller functions to abstract away database operations.
+This is one (not too) big file since there are not many models yet.
+If the application grows, this needs to be refactored into a package on its own."""
 
+from datetime import datetime, timedelta
 from typing import Optional
+
 from sqlalchemy import and_, or_
 
 from . import database
