@@ -4,12 +4,13 @@ import click
 from flask import g
 from flask.cli import with_appcontext
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.engine import Engine
+from sqlalchemy.orm import sessionmaker, Session
 
 from .model import Base
 
 
-def get_engine():
+def get_engine() -> Engine:
     if "engine" not in g:
         username = os.environ.get("PG_USERNAME", "postgres")
         password = os.environ.get("PG_PASSWORD", "postgres")
@@ -23,7 +24,7 @@ def get_engine():
     return g.engine
 
 
-def get_session():
+def get_session() -> Session:
     if "orm_session" not in g:
         g.orm_session = sessionmaker(bind=get_engine())
 

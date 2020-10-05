@@ -1,13 +1,13 @@
 from datetime import datetime, timedelta
 
-from typing import Union
+from typing import Optional
 from sqlalchemy import and_, or_
 
 from . import database
 from .model import Node, Way, Visit
 
 
-def get_market(market_id: int) -> Union[dict, None]:
+def get_market(market_id: int) -> Optional[dict]:
     session = database.get_session()
 
     node = session.query(Node).filter(Node.id == market_id).first()
@@ -21,14 +21,14 @@ def get_market(market_id: int) -> Union[dict, None]:
     return None
 
 
-def get_visits(market_id: int) -> Union[list, None]:
+def get_visits(market_id: int) -> Optional[dict]:
     session = database.get_session()
 
     visits = session.query(Visit).filter(or_(Visit.node_id == market_id, Visit.way_id == market_id)).all()
     return visits
 
 
-def get_visits_time(market_id: int, timestamp: int) -> Union[list, None]:
+def get_visits_time(market_id: int, timestamp: int) -> Optional[dict]:
     session = database.get_session()
     visit_datetime = datetime.fromtimestamp(timestamp)
     delta = timedelta(minutes=30)
@@ -47,7 +47,7 @@ def get_visits_time(market_id: int, timestamp: int) -> Union[list, None]:
     return visits
 
 
-def add_visit(market_id: int, timestamp: int) -> Visit:
+def add_visit(market_id: int, timestamp: int) -> Optional[Visit]:
     session = database.get_session()
 
     node_id, way_id = None, None
@@ -68,7 +68,7 @@ def add_visit(market_id: int, timestamp: int) -> Visit:
     return visit
 
 
-def get_postcode(code: str) -> Union[list, None]:
+def get_postcode(code: str) -> Optional[list]:
     session = database.get_session()
 
     nodes = session.query(Node).filter(Node.tags["addr:postcode"] == code).all()

@@ -18,7 +18,7 @@ class Node(Base):
     tags = Column(HSTORE)
     geom = Column(Geometry("POINT"))
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "id": self.id,
             "version": self.version,
@@ -40,7 +40,7 @@ class Way(Base):
     tags = Column(HSTORE)
     nodes = Column(ARRAY(BigInteger))
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "id": self.id,
             "version": self.version,
@@ -58,7 +58,7 @@ class WayNode(Base):
     sequence_id = Column(Integer, primary_key=True)
     node_id = Column(BigInteger)
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "way_id": self.way_id,
             "sequence_id": self.sequence_id,
@@ -74,7 +74,7 @@ class Visit(Base):
     tstamp = Column(DateTime)
     weight = Column(Float)
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "id": self.id,
             "node_id": self.node_id,
