@@ -1,3 +1,5 @@
+"""Flask blueprint providing functionality as JSON API"""
+
 from dateutil import parser
 from flask import Blueprint, abort, jsonify, request
 

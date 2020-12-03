@@ -1,3 +1,5 @@
+"""Flask blueprint providing fuctionality via simple web frontend"""
+
 from dateutil import parser
 from flask import Blueprint, abort, render_template, request, Response
 

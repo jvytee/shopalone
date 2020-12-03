@@ -1,3 +1,5 @@
+"""Functions to plot data"""
+
 import io
 import numpy as np
 import matplotlib.pyplot as plt
