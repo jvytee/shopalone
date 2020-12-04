@@ -15,7 +15,7 @@ setup(
         "geoalchemy2",
         "matplotlib",
         "numpy",
-        "psycopg2-binary",
+        "psycopg2",
         "python-dateutil",
         "shapely"
     ],
